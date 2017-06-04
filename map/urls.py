@@ -3,5 +3,5 @@ from django.conf.urls import url
 from map import views
 
 urlpatterns = [
-    url(r'^$', views.MapIndex.as_view(), name='index'),
+    url(r'^$', views.MapIndexView.as_view(), name='index'),
 ]
