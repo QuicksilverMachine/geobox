@@ -24,51 +24,50 @@
                 <a href="{% url 'account_edit' webapp_user.username %}"><button class="pure-button">{% trans 'Change account info' %}</button></a><br><br>
                 <a href="{% url 'account_email' %}"><button class="pure-button">{% trans 'Change E-mail' %}</button></a><br><br>
                 <a href="{% url 'account_change_password' %}"><button class="pure-button">{% trans 'Change password' %}</button></a><br><br>
-                <a href="{% url 'stats:index' webapp_user.username %}"><button class="pure-button">{% trans 'Statistics' %}</button></a><br><br>
             </div>
         {% endif %}
     </div>
-    <h3>{% trans 'Videos' %}</h3>
-    {% if webapp_user.username == user.username or user.is_staff %}
-        <a href="{% url 'videos:add' %}"><button class="pure-button">{% trans 'Add' %}</button></a><br><br>
-    {% endif %}
+{#    <h3>{% trans 'Videos' %}</h3>#}
+{#    {% if webapp_user.username == user.username or user.is_staff %}#}
+{#        <a href="{% url 'videos:add' %}"><button class="pure-button">{% trans 'Add' %}</button></a><br><br>#}
+{#    {% endif %}#}
 
-    <div class="webapp-media-block-container">
-        {% for video in user_videos %}
-            <div class="webapp-media-block webapp-video-block">
-                <a href="{% url 'videos:watch' video.id %}">
-                    <img src="{{ video.thumbnail_url }}" class="webapp-media-block-thumbnail webapp-video-block-thumbnail">
-                    {{ video.title }}
-                </a>
-                {% if webapp_user.username == user.username or user.is_staff %}
-                    <br>
-                    <div class="webapp-profile-media-controls">
-                        <a href="{% url 'videos:edit' video.id %}"><button class="pure-button">{% trans 'Edit' %}</button></a>
-                        <a href="{% url 'videos:delete' video.id %}"><button class="pure-button">{% trans 'Delete' %}</button></a>
-                    </div>
-                {% endif %}
-            </div>
-        {% endfor %}
-    </div>
-    <h3>{% trans 'Albums' %}</h3>
-    {% if webapp_user.username == user.username or user.is_staff %}
-        <a href="{% url 'music:add-album' %}"><button class="pure-button">{% trans 'Add' %}</button></a><br><br>
-    {% endif %}
-    <div class="webapp-media-block-container">
-        {% for album in user_albums %}
-            <div class="webapp-media-block webapp-album-block">
-                <a href="{% url 'music:listen' album.id %}">
-                    <img src="{{ album.thumbnail_url }}" class="webapp-media-block-thumbnail webapp-album-block-thumbnail">
-                    {{ album.title }}
-                </a>
-               {% if webapp_user.username == user.username or user.is_staff %}
-                   <br>
-                   <div class="webapp-profile-media-controls">
-                       <a href="{% url 'music:edit-album' album.id %}"><button class="pure-button">{% trans 'Edit' %}</button></a>
-                       <a href="{% url 'music:delete-album' album.id %}"><button class="pure-button">{% trans 'Delete' %}</button></a>
-                   </div>
-                {% endif %}
-            </div>
-        {% endfor %}
-    </div>
+{#    <div class="webapp-media-block-container">#}
+{#        {% for video in user_videos %}#}
+{#            <div class="webapp-media-block webapp-video-block">#}
+{#                <a href="{% url 'videos:watch' video.id %}">#}
+{#                    <img src="{{ video.thumbnail_url }}" class="webapp-media-block-thumbnail webapp-video-block-thumbnail">#}
+{#                    {{ video.title }}#}
+{#                </a>#}
+{#                {% if webapp_user.username == user.username or user.is_staff %}#}
+{#                    <br>#}
+{#                    <div class="webapp-profile-media-controls">#}
+{#                        <a href="{% url 'videos:edit' video.id %}"><button class="pure-button">{% trans 'Edit' %}</button></a>#}
+{#                        <a href="{% url 'videos:delete' video.id %}"><button class="pure-button">{% trans 'Delete' %}</button></a>#}
+{#                    </div>#}
+{#                {% endif %}#}
+{#            </div>#}
+{#        {% endfor %}#}
+{#    </div>#}
+{#    <h3>{% trans 'Albums' %}</h3>#}
+{#    {% if webapp_user.username == user.username or user.is_staff %}#}
+{#        <a href="{% url 'music:add-album' %}"><button class="pure-button">{% trans 'Add' %}</button></a><br><br>#}
+{#    {% endif %}#}
+{#    <div class="webapp-media-block-container">#}
+{#        {% for album in user_albums %}#}
+{#            <div class="webapp-media-block webapp-album-block">#}
+{#                <a href="{% url 'music:listen' album.id %}">#}
+{#                    <img src="{{ album.thumbnail_url }}" class="webapp-media-block-thumbnail webapp-album-block-thumbnail">#}
+{#                    {{ album.title }}#}
+{#                </a>#}
+{#               {% if webapp_user.username == user.username or user.is_staff %}#}
+{#                   <br>#}
+{#                   <div class="webapp-profile-media-controls">#}
+{#                       <a href="{% url 'music:edit-album' album.id %}"><button class="pure-button">{% trans 'Edit' %}</button></a>#}
+{#                       <a href="{% url 'music:delete-album' album.id %}"><button class="pure-button">{% trans 'Delete' %}</button></a>#}
+{#                   </div>#}
+{#                {% endif %}#}
+{#            </div>#}
+{#        {% endfor %}#}
+{#    </div>#}
 {% endblock %}

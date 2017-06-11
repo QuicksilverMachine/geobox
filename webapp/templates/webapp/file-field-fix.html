@@ -7,8 +7,8 @@
             var file_input_id = $(file_input).attr('id');
             var file_input_name = $(file_input).attr('name');
 
-            var button = '<div class="orpheus-file-upload-container">'
-            +    '<div class="orpheus-file-upload pure-button">'
+            var button = '<div class="webapp-file-upload-container">'
+            +    '<div class="webapp-file-upload pure-button">'
             +    '<span>' + '{% trans "Upload" %}' + '</span>'
             +    '<input ';
 
@@ -16,9 +16,9 @@
                 button += 'required';
             }
 
-            button += ' id="' + file_input_id + '" name="' + file_input_name + '" type="file" class="orpheus-file-upload-input" />'
+            button += ' id="' + file_input_id + '" name="' + file_input_name + '" type="file" class="webapp-file-upload-input" />'
             +    '</div>'
-            +    '<div id="' + file_input_id + '_filename" data-id class="orpheus-upload-filename"></div>'
+            +    '<div id="' + file_input_id + '_filename" data-id class="webapp-upload-filename"></div>'
             +    '</div>';
 
             file_parent.replaceWith(button);
@@ -41,7 +41,7 @@
         });
 
         $('.validated-form').submit(function(){
-            $('.orpheus-file-upload-container label.error').each(function(i, error) {
+            $('.webapp-file-upload-container label.error').each(function(i, error) {
                 $(error).insertAfter($(error).parent())
             });
         });
