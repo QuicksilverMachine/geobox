@@ -1,0 +1,39 @@
+{% load i18n %}
+<script>
+    var percent = 0;
+    var form = $('form[enctype="multipart/form-data"]');
+    var progress_bar = null;
+
+    function validator(){
+        var valid = form.validate();
+        if (valid) {
+            progress_bar = Lobibox.progress({
+                title: "{% trans "Please wait" %}",
+                label: "{% trans "Uploading" %}...",
+                closeButton: false,
+                closeOnEsc: false,
+                iconSource: 'fontAwesome',
+                shown: function(self) {
+                    $('.lobibox').addClass('lobibox-progress-fix');
+                    $(window).resize(function() {
+                        $(self.$el).removeClass('lobibox-progress-fix');
+                    });
+                }
+            });
+        }
+        return valid;
+    }
+
+    form.ajaxForm({
+        beforeSend: validator,
+        uploadProgress: function (event, position, total, percentComplete) {
+            progress_bar.setProgress(percentComplete)
+        },
+        complete: function (response) {
+            progress_bar.destroy();
+            if (response.status == 200) {
+                window.location.replace(response.responseText);
+            }
+        }
+});
+</script>

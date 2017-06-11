@@ -1,0 +1,16 @@
+{% extends "webapp/master.html" %}
+{% load staticfiles %}
+
+{% block body %}
+    {% block content %}{% endblock %}
+    {% block extra_body %}{% endblock %}
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'accounts/css/base.css' %}" />
+    {% block page_css %}{% endblock %}
+{% endblock %}
+
+{% block js %}
+    {% block accounts_js %}{% endblock %}
+{% endblock %}

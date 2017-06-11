@@ -1,0 +1,39 @@
+/* Profile page css */
+
+.webapp-profile-fullname {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.webapp-profile-username {
+    font-size: 1.2em;
+    padding-bottom: 1em;
+    font-style: italic;
+}
+
+.webapp-profile-info {
+    width: 100%;
+    float: left;
+    margin-bottom: 1em;
+}
+
+.webapp-profile-picture {
+    margin: 0 2em 1.2em 0;
+    float: left;
+    width: 10em;
+    height: 10em;
+}
+
+.webapp-profile-picture > img {
+    height: 100%;
+    width: 100%;
+}
+
+.webapp-profile-media-controls {
+    display: block;
+    padding-top: 0.5em;
+}
+
+.webapp-profile-edit-controls {
+    float: left;
+}

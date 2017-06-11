@@ -1,0 +1,10 @@
+{% for field in form %}
+    <fieldset>
+        <div class="pure-control-group">
+            <label>{{ field.label_tag }}</label>
+            <div>{{ field }}</div>
+            <span class="helptext">{{ field.help_text }}</span>
+            <span>{{ field.errors }}</span>
+        </div>
+    </fieldset>
+{% endfor %}

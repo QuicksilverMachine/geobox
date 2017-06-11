@@ -1,0 +1,9 @@
+{% extends "orpheus/master.html" %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block head_title %}400{% endblock %}
+
+{% block body %}
+    <div class="orpheus-site-error">400 - {% trans 'Bad request' %}</div>
+{% endblock %}

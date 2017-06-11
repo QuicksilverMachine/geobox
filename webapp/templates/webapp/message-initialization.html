@@ -1,0 +1,25 @@
+<script>
+    {% if messages %}
+        {% for message in messages %}
+            Lobibox.notify(
+            {% if message.tags == 'success' %}
+                'info',
+            {% elif not message.tags or message.tags == 'error' %}
+                'error',
+            {% elif message.tags == 'warning' %}
+                'warning',
+            {% else %}
+                'info',
+            {% endif %} {
+                size: 'mini',
+                icon: false,
+                position: 'top right',
+                closeOnClick: true,
+                msg: '{{message}}',
+                sound: false,
+                delayIndicator: false
+            });
+            console.log("{{ message.tags }}");
+        {% endfor %}
+    {% endif %}
+</script>

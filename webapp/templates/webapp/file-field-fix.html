@@ -1,0 +1,49 @@
+{% load i18n %}
+<script>
+    $(window).on('load', function() {
+        $("input[type='file']").each(function(i, file_input) {
+            var file_parent = $(file_input).parent();
+            var filename_field = file_parent.find('a');
+            var file_input_id = $(file_input).attr('id');
+            var file_input_name = $(file_input).attr('name');
+
+            var button = '<div class="orpheus-file-upload-container">'
+            +    '<div class="orpheus-file-upload pure-button">'
+            +    '<span>' + '{% trans "Upload" %}' + '</span>'
+            +    '<input ';
+
+            if ($(file_input).prop('required')) {
+                button += 'required';
+            }
+
+            button += ' id="' + file_input_id + '" name="' + file_input_name + '" type="file" class="orpheus-file-upload-input" />'
+            +    '</div>'
+            +    '<div id="' + file_input_id + '_filename" data-id class="orpheus-upload-filename"></div>'
+            +    '</div>';
+
+            file_parent.replaceWith(button);
+
+            if (filename_field.length > 0) {
+                var filepath = filename_field.attr('href');
+                var filename = filepath.substring(filepath.lastIndexOf("/") + 1, filepath.length);
+                $('#' + file_input_id + '_filename').html(filename);
+            }
+
+            $('#' + file_input_id).change(function() {
+                var filename = $(this).val();
+                var lastIndex = filename.lastIndexOf("\\");
+                if (lastIndex >= 0) {
+                    filename = filename.substring(lastIndex + 1);
+                }
+                $('#' + file_input_id + '_filename').html(filename);
+                $('#' + file_input_id + '-error').css('display', 'none');
+            });
+        });
+
+        $('.validated-form').submit(function(){
+            $('.orpheus-file-upload-container label.error').each(function(i, error) {
+                $(error).insertAfter($(error).parent())
+            });
+        });
+    });
+</script>

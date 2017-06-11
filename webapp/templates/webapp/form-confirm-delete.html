@@ -1,0 +1,6 @@
+{% load i18n %}
+<form action="" method="post" class="pure-form pure-form-stacked">
+    {% csrf_token %}
+    <p>{% blocktrans %}Are you sure you want to delete "{{ object }}"?{% endblocktrans %}</p>
+    <button class="pure-button" type="submit">{% trans 'Confirm' %}</button>
+</form>

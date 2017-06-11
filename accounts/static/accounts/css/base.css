@@ -1,0 +1,17 @@
+label[for=id_remember] {
+    display: inline;
+}
+
+label[for=id_remember] + div {
+    display: inline-block;
+    padding-bottom: 0.8em;
+}
+
+#id_remember {
+    width: 1em;
+    margin-left: 0.5em;
+}
+
+a {
+    text-decoration: underline;
+}

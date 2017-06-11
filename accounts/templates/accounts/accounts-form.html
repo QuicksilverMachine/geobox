@@ -1,0 +1,14 @@
+{% for field in form %}
+        <fieldset>
+            <div class="pure-control-group">
+                {% if field.id_for_label != 'id_confirmation_key' %}
+                    <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
+                {% else %}
+                    <label hidden for="{{ field.id_for_label }}">{{ field.label }}:</label>
+                {% endif %}
+                <div>{{ field }}</div>
+                <span class="helptext">{{ field.help_text }}</span>
+                <span>{{ field.errors }}</span>
+            </div>
+        </fieldset>
+{% endfor %}
