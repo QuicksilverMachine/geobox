@@ -4,3 +4,6 @@ __pycache__/
 
 *.iml
 .idea
+
+media/accounts/profile_pictures/*
+!media/accounts/profile_pictures/profile_pictures_go_here.txt
