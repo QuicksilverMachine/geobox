@@ -6,6 +6,7 @@ from accounts.models import User
 
 
 class Map(models.Model):
+    id = models.CharField(max_length=100, primary_key=True)
     title = models.CharField(_("Title"), max_length=100)
     description = models.TextField(_("Description"))
     created = models.DateTimeField(_("Created"), default=now)
