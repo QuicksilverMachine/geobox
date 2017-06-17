@@ -1,9 +1,9 @@
-{% extends "orpheus/master.html" %}
+{% extends "webapp/master.html" %}
 {% load staticfiles %}
 {% load i18n %}
 
 {% block head_title %}500{% endblock %}
 
 {% block body %}
-    <div class="orpheus-site-error">500 - {% trans 'Server error' %}</div>
+    <div class="webapp-site-error">500 - {% trans 'Server error' %}</div>
 {% endblock %}

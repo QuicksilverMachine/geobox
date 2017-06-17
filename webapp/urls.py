@@ -10,10 +10,10 @@ urlpatterns = [
     url(r'^map/', include('map.urls', namespace="map")),
 ]
 
-handler404 = 'orpheus.views.page_not_found_view'
-handler500 = 'orpheus.views.error_view'
-handler403 = 'orpheus.views.permission_denied_view'
-handler400 = 'orpheus.views.bad_request_view'
+handler404 = 'webapp.views.page_not_found_view'
+handler500 = 'webapp.views.error_view'
+handler403 = 'webapp.views.permission_denied_view'
+handler400 = 'webapp.views.bad_request_view'
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL,
