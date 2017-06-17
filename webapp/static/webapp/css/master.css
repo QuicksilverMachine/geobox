@@ -22,18 +22,21 @@ body, html {
     width: 100%;
     background-color: white;
     padding-top: 0.3em;
-    z-index: 2;
+    z-index: 2000;
 }
 
 .webapp-logo {
     max-width: 8em;
     margin-top: 0.2em;
-    /*margin-top: -4px;*/
 }
 
 .webapp-content {
-    padding: 6em 0.5em 10em 0.5em;
+    margin: 0 auto;
+}
+
+.webapp-content-rows {
     max-width: 60em;
+    padding: 4em 0.5em 10em 0.5em;
     margin: 0 auto;
 }
 
@@ -169,6 +172,7 @@ a:visited {
 }
 
 .custom-brand {
+    width: 5em;
     padding-left: 0.8em;
 }
 

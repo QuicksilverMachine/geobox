@@ -1,0 +1,43 @@
+#map {
+    margin-top: 4.5em;
+    position: relative;
+    height: 45em;
+    width: 100%;
+}
+
+.webapp-media-block-container{
+    width: 100%;
+}
+
+.webapp-media-block {
+    border: 1px solid black;
+    width: 100%;
+}
+
+/*Two media blocks*/
+@media only screen and (min-width: 40em) {
+    .webapp-media-block-container {
+        width: 100%;
+    }
+
+    .webapp-media-block {
+        width: 50%;
+        display: inline;
+        padding: 1em;
+        float: left;
+    }
+}
+
+/*Three media blocks*/
+@media only screen and (min-width: 55em) {
+    .webapp-media-block-container {
+        width: 100%;
+    }
+
+    .webapp-media-block {
+        width: 50%;
+        display: inline;
+        padding: 1em;
+        float: left;
+    }
+}

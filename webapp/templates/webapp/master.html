@@ -73,6 +73,9 @@
 
             <!--CONTENT-->
             <div class="webapp-content">
+                {% block body-full %}{% endblock %}
+            </div>
+            <div class="webapp-content-rows">
                 {% block body %}{% endblock %}
             </div>
 

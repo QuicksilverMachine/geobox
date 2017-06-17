@@ -1,3 +1,4 @@
 {% for map in maps %}
-    {{ map }}
+    <a href="{% url 'map:detail' map.id %}">{{ map.title }}</a>
+    <br>
 {% endfor %}

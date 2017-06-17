@@ -1,0 +1,45 @@
+{% extends 'webapp/master.html' %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block css %}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" integrity="sha512-07I2e+7D8p6he1SIM+1twR5TIrhUQn9+I6yjqD53JQjFiMf8EtC93ty0/5vJTZGF8aAocvHYNEDJajGdNx1IsQ==" crossorigin=""/>
+    <link rel="stylesheet" type="text/css" href="{% static 'map/css/map.css' %}" />
+{% endblock %}
+
+{% block body-full %}
+    <div id="map"></div>
+    <div class="webapp-media-block-container">
+        <div class="webapp-media-block">
+            {% trans "Markers" %}
+            <br>
+            <ul>
+                <li>Test 1</li>
+                <li>Test 2</li>
+                <li>Test 3</li>
+            </ul>
+        </div>
+        <div class="webapp-media-block">
+            {% trans "Connected users" %}
+            <br>
+            <ul>
+                <li>Test 1</li>
+                <li>Test 2</li>
+                <li>Test 3</li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js" integrity="sha512-A7vV8IFfih/D732iSSKi20u/ooOfj/AGehOKq0f4vLT1Zr2Y+RX7C+w8A1gaSasGtRUZpF/NZgzSAu4/Gc41Lg==" crossorigin=""></script>
+    <script>
+        var mymap = L.map('map').setView([44.7986, 20.4489], 13);
+        L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoicXVpY2tzaWx2ZXJtYWNoaW5lIiwiYSI6ImNpam82eGVmMzAwdHR1b2x4YzlrcXhycm0ifQ.IgzogF0Nzn9EwIflCarL-g', {
+            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+            maxZoom: 18,
+            id: 'mapbox.streets',
+            accessToken: 'pk.eyJ1IjoicXVpY2tzaWx2ZXJtYWNoaW5lIiwiYSI6ImNpam82eGVmMzAwdHR1b2x4YzlrcXhycm0ifQ.IgzogF0Nzn9EwIflCarL-g'
+        }).addTo(mymap);
+    </script>
+{% endblock %}

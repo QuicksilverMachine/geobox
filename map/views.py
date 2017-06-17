@@ -9,3 +9,9 @@ class MapIndexView(generic.ListView):
     def get_queryset(self):
         media = Map.objects.all()
         return media
+
+
+class MapDetailView(generic.DetailView):
+    model = Map
+    template_name = 'map/map.html'
+    context_object_name = 'map'
