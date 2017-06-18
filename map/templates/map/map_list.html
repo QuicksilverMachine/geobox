@@ -1,4 +1,6 @@
 {% for map in maps %}
+    {% if user == map.user %}
     <a href="{% url 'map:detail' map.id %}">{{ map.title }}</a>
     <br>
+    {% endif %}
 {% endfor %}
