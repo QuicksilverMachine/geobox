@@ -11,7 +11,8 @@
 
 {% block body-full %}
     <div id="map"></div>
-{#    <div class="webapp-media-block-container">#}
+    <div class="webapp-media-block-container">
+
         <div class="webapp-media-block">
             {% trans "Connected users" %}
             <br>
@@ -20,7 +21,24 @@
                 <li>Test 2</li>
             </ul>
         </div>
-{#    </div>#}
+        {% if user == map.user %}
+            <div class="webapp-media-block">
+                <form class="pure-form pure-form-stacked" method="post" action="{% url 'map:update' map.id %}">
+                    {% csrf_token %}
+                    <label>Editing mode</label>
+                    <input name="editing" type="checkbox" {% if map.editing %}checked{% endif %}/><br>
+                    <label>Private map</label>
+                    <input name="private" type="checkbox" {% if map.private %}checked{% endif %}/><br>
+                    <label>Name</label>
+                    <input name="title" type="text" value="{{ map.title }}" /><br>
+                    <label>Description</label>
+                    <input name="description" type="text" value="{{ map.description }}"/><br>
+                    <input name="waypoints" type="hidden" value="{{ waypoints }}"/>
+                    <button class="pure-button" type="submit">{% trans "Save changes" %} &raquo;</button>
+                </form>
+            </div>
+        {% endif %}
+    </div>
 {% endblock %}
 
 {% block js %}
@@ -66,6 +84,7 @@
         }
         locate(initialSetView);
         // call locate every 10 seconds... forever
+
         setInterval(locate, 10000);
 
         function createButton(label, container) {
@@ -75,55 +94,92 @@
             return btn;
         }
 
+        function saveWaypoints(control){
+            var waypoints = control.getWaypoints();
+
+            var packed_waypoints = "";
+            waypoints.forEach(function(w) {
+                if (w.latLng) {
+                    packed_waypoints = packed_waypoints + "|" + w.latLng.lat + "/" + w.latLng.lng
+                }
+            });
+
+            $("input[name='waypoints']").val(packed_waypoints);
+        }
+
         var ReversablePlan = L.Routing.Plan.extend({
             createGeocoders: function() {
                 var container = L.Routing.Plan.prototype.createGeocoders.call(this);
                 var reverseButton = createButton('↑↓', container);
 
-                L.DomEvent.on(reverseButton, 'click', function() {
-                    var waypoints = this.getWaypoints(); this.setWaypoints(waypoints.reverse());
-                }, this);
+                {% if map.editing %}
+                    L.DomEvent.on(reverseButton, 'click', function() {
+                        var waypoints = this.getWaypoints(); this.setWaypoints(waypoints.reverse());
+                    }, this);
+                {% endif %}
 
                 return container;
             }
         });
 
-        var plan = new ReversablePlan([
-                L.latLng(44.7986, 20.4489),
-                L.latLng(44.7986, 20.5489)
-            ], {
-                geocoder: L.Control.Geocoder.nominatim(),
+            var plan = new ReversablePlan([
+                {% for waypoint in map.waypoint_set.all %}
+                    L.latLng({{ waypoint.latitude }}, {{ waypoint.longitude }}),
+                {% endfor %}
+                ], {
+                    geocoder: L.Control.Geocoder.nominatim(),
+                    routeWhileDragging: true,
+                    {% if not map.editing %}
+                        draggableWaypoints: false,
+                    {% endif %}
+                });
+
+            var control = L.Routing.control({
                 routeWhileDragging: true
-            }),
-            control = L.Routing.control({
-                routeWhileDragging: true,
-                plan: plan
+                ,plan: plan
+                {% if not map.editing %}
+                    ,addWaypoints: false
+                {% endif %}
             }).addTo(map);
 
-        map.on('click', function(e) {
-            var container = L.DomUtil.create('div'),
-                startBtn = createButton('Start', container),
-                destBtn = createButton('Goal', container);
-
-            L.popup()
-                .setContent(container)
-                .setLatLng(e.latlng)
-                .openOn(map);
-
-            L.DomEvent.on(startBtn, 'click', function() {
-                control.spliceWaypoints(0, 1, e.latlng);
-                map.closePopup();
+            plan.on('waypointschanged', function(e){
+                {% if map.editing %}
+                    saveWaypoints(control);
+                {% endif %}
             });
 
-            L.DomEvent.on(destBtn, 'click', function() {
-                control.spliceWaypoints(control.getWaypoints().length - 1, 1, e.latlng);
-                map.closePopup();
-            });
-        });
 
-        if ($(window).width() < 640) {
-            control.hide();
-        }
+            {% if map.editing %}
+                map.on('click', function(e) {
+                    var container = L.DomUtil.create('div'),
+                        startBtn = createButton('Start', container),
+                        destBtn = createButton('Goal', container);
+
+                    L.popup()
+                        .setContent(container)
+                        .setLatLng(e.latlng)
+                        .openOn(map);
+
+                    L.DomEvent.on(startBtn, 'click', function() {
+                        control.spliceWaypoints(0, 1, e.latlng);
+                        //saveWaypoints(control);
+                        map.closePopup();
+                    });
+
+                    L.DomEvent.on(destBtn, 'click', function() {
+                        control.spliceWaypoints(control.getWaypoints().length - 1, 1, e.latlng);
+                        //saveWaypoints(control);
+                        map.closePopup();
+                    });
+                });
+
+                if ($(window).width() < 640) {
+                    control.hide();
+                }
+        {% else %}
+                $('.leaflet-routing-container').remove();
+        {% endif %}
+
 
     </script>
 {% endblock %}

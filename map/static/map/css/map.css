@@ -1,5 +1,5 @@
 #map {
-    margin-top: 4.5em;
+    margin: 4.5em 0 0 0;
     position: relative;
     height: 45em;
     width: 100%;
@@ -10,8 +10,9 @@
 }
 
 .webapp-media-block {
-    border: 1px solid black;
+    /*border: 1px solid black;*/
     width: 100%;
+    padding: 1em;
 }
 
 /*Two media blocks*/
@@ -40,4 +41,9 @@
         padding: 1em;
         float: left;
     }
+}
+
+
+input[type="text"] {
+    width: 20em;
 }

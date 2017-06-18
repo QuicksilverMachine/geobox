@@ -1,6 +1,7 @@
 {% for map in maps %}
     {% if user == map.user %}
     <a href="{% url 'map:detail' map.id %}">{{ map.title }}</a>
+    <a href="{% url 'map:delete' map.id %}"><button>Delete</button></a>
     <br>
     {% endif %}
 {% endfor %}
