@@ -27,6 +27,10 @@
         padding: 1em;
         float: left;
     }
+
+    #map {
+        height: 50em;
+    }
 }
 
 /*Three media blocks*/
@@ -41,6 +45,11 @@
         padding: 1em;
         float: left;
     }
+
+    #map {
+        height: 60em;
+    }
+
 }
 
 
