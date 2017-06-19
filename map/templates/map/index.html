@@ -1,4 +1,10 @@
 {% extends 'webapp/master.html' %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'map/css/map.css' %}" />
+{% endblock %}
 
 {% block body %}
     {% include 'map/map_list.html' %}

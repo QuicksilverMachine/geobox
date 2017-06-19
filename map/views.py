@@ -100,3 +100,12 @@ def update_map(request, pk):
         waypoint.save()
 
     return redirect('/map/{}'.format(pk))
+
+
+def update_map_wp(request, pk):
+    map_object = Map.objects.get(id=pk)
+
+    if map_object.private and not map_object.user == request.user:
+        return HttpResponse(status=404)
+
+    return HttpResponse(Waypoint.packed(map_object.id))

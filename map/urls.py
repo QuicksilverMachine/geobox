@@ -16,4 +16,7 @@ urlpatterns = [
         r'-?[89ab][a-f0-9]{3}-?[a-f0-9]{12})$',
         views.delete_map,
         name='delete'),
+    url(r'^waypoints/(?P<pk>[a-f0-9]{8}-?[a-f0-9]{4}-?4[a-f0-9]{3}'
+        r'-?[89ab][a-f0-9]{3}-?[a-f0-9]{12})$', views.update_map_wp,
+        name='waypoints'),
 ]

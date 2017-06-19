@@ -1,7 +1,12 @@
 {% for map in maps %}
     {% if user == map.user %}
-    <a href="{% url 'map:detail' map.id %}">{{ map.title }}</a>
-    <a href="{% url 'map:delete' map.id %}"><button>Delete</button></a>
+        <a href="{% url 'map:detail' map.id %}">
+            <div class="map-list-element">
+
+                    <p class="title">{{ map.title }}</p>
+                    <a href="{% url 'map:delete' map.id %}"><button class="pure-button delete-button">Delete</button></a>
+            </div>
+        </a>
     <br>
     {% endif %}
 {% endfor %}

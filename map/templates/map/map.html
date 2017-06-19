@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="{% static 'webapp/addons/leaflet/leaflet.css' %}" />
     <link rel="stylesheet" href="{% static 'webapp/addons/leaflet-routing-machine/leaflet-routing-machine.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'map/css/map.css' %}" />
-
 {% endblock %}
 
 {% block body-full %}
@@ -149,6 +148,10 @@
             });
 
 
+
+
+
+
             {% if map.editing %}
                 map.on('click', function(e) {
                     var container = L.DomUtil.create('div'),
@@ -179,6 +182,40 @@
         {% else %}
                 $('.leaflet-routing-container').remove();
         {% endif %}
+
+
+        {% if user != map.user %}
+            function update_map() {
+                $.ajax({
+                    type: "get",
+                    url: '{% url 'map:waypoints' map.id %}',
+                    contentType: 'application/json',
+                    success: function (data) {
+                        var wps = data.split('|');
+                        var waypoints = [];
+                        wps.forEach(function(w) {
+                            if(w != "") {
+                                var latlng1 = w.split("/");
+
+
+                                var lat1 = latlng1[0];
+                                var lng1 = latlng1[1];
+
+                                waypoints.push(L.latLng(lat1, lng1));
+                            }
+                        });
+                        control.setWaypoints(
+                            waypoints
+                        );
+
+                        saveWaypoints(control);
+                    }
+                });
+            }
+
+            setInterval(update_map, 10000);
+        {% endif %}
+
 
 
     </script>

@@ -10,10 +10,37 @@
 }
 
 .webapp-media-block {
-    /*border: 1px solid black;*/
     width: 100%;
     padding: 1em;
 }
+
+.map-list-element {
+    width: 100%;
+    min-height: 5em;
+    border: 1px solid lightgray;
+    background-image: url('../img/world.gif');
+}
+
+.map-list-element .title{
+    margin-top: 2em;
+    margin-left: 2em;
+    width: 5em;
+    display: inline-block;
+}
+
+.map-list-element .delete-button {
+    margin-top: 1em;
+    margin-right: 2em;
+    display: inline-block;
+    width: 5em;
+    float: right;
+}
+
+
+input[type="text"] {
+    width: 20em;
+}
+
 
 /*Two media blocks*/
 @media only screen and (min-width: 40em) {
@@ -49,10 +76,5 @@
     #map {
         height: 60em;
     }
-
 }
 
-
-input[type="text"] {
-    width: 20em;
-}
