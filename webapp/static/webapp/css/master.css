@@ -42,6 +42,7 @@ body, html {
 
 .webapp-footer {
     border-top: 1px solid lightgray;
+    background-color: white;
     position: absolute;
     width: 100%;
     height: 4em;
@@ -340,4 +341,16 @@ a:visited {
 .helptext {
     color: gray;
     font-size: 0.8em;
+}
+
+.webapp-container:after {
+    opacity: 0.3;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    content: "";
+    z-index: -1;
+    background-image: url('../img/world_map.jpg');
 }

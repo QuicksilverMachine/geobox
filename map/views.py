@@ -1,10 +1,14 @@
+import datetime
 import uuid
 
-from django.http import HttpResponse, Http404
+import json
+from django.contrib.auth.models import AnonymousUser
+from django.http import HttpResponse, Http404, JsonResponse
 from django.shortcuts import redirect
 from django.views import generic, View
+from django.views.decorators.csrf import csrf_exempt
 
-from map.models import Map, Waypoint
+from map.models import Map, Waypoint, UserSession, User
 
 
 class MapIndexView(generic.ListView):
@@ -109,3 +113,60 @@ def update_map_wp(request, pk):
         return HttpResponse(status=404)
 
     return HttpResponse(Waypoint.packed(map_object.id))
+
+
+@csrf_exempt
+def add_user_sessions(request):
+    body_unicode = request.body.decode('utf-8')
+    body = json.loads(body_unicode)
+
+    pk = body['pk']
+    latitude = body['latitude']
+    longitude = body['longitude']
+
+    map_object = Map.objects.get(id=pk)
+
+    if map_object.private and not map_object.user == request.user:
+        return HttpResponse(status=404)
+
+    if not request.user.is_authenticated:
+        user = User(
+            full_name="Anonymous User"
+        )
+        user.save()
+    else:
+        user = request.user
+
+    user_session = UserSession(
+        user=user,
+        map=map_object,
+        timestamp=datetime.datetime.utcnow(),
+        latitude=latitude,
+        longitude=longitude
+    )
+    user_session.save()
+    return HttpResponse(status=200)
+
+
+def update_user_sessions(request, pk):
+    user_sessions = (
+        UserSession.objects
+        .filter(map__id=pk)
+        .filter(
+            timestamp__gt=(
+                datetime.datetime.now() - datetime.timedelta(seconds=15)
+            ))).all()
+
+    users = []
+    usernames = []
+    for session in user_sessions:
+        if session.user.full_name not in usernames:
+            usernames.append(session.user.full_name)
+            users.append({
+                "full_name": session.user.full_name,
+                "latitude": session.latitude,
+                "longitude": session.longitude
+            })
+    return JsonResponse({
+        'users': users
+    })

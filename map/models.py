@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 from django.utils.timezone import now
 from django.utils.translation import ugettext_lazy as _
 
@@ -34,3 +35,11 @@ class Waypoint(models.Model):
                 str(waypoint.longitude)
             )
         return packed_waypoints
+
+
+class UserSession(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    map = models.ForeignKey(Map, on_delete=models.CASCADE)
+    timestamp = models.DateTimeField()
+    latitude = models.FloatField(null=True)
+    longitude = models.FloatField(null=True)

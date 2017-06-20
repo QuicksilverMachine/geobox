@@ -7,8 +7,13 @@
 {% endblock %}
 
 {% block body %}
-    {% include 'map/map_list.html' %}
     {% if user.is_authenticated %}
+        {% include 'map/map_list.html' %}
         <a href="{% url 'map:create' %}"><button>New map</button></a>
+    {% else %}
+        <div class="main-page">
+            <h1>Welcome to GEOBOX</h1>
+            <p>Sign up now to share maps with your friends</p>
+        </div>
     {% endif %}
 {% endblock %}

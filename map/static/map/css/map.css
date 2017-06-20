@@ -3,6 +3,7 @@
     position: relative;
     height: 45em;
     width: 100%;
+    border-bottom: 1px solid lightgray;
 }
 
 .webapp-media-block-container{
@@ -78,3 +79,8 @@ input[type="text"] {
     }
 }
 
+.main-page {
+    width: 40em;
+    margin: 10em auto;
+    text-align: center;
+}
