@@ -154,7 +154,7 @@ def update_user_sessions(request, pk):
         .filter(map__id=pk)
         .filter(
             timestamp__gt=(
-                datetime.datetime.now() - datetime.timedelta(seconds=15)
+                datetime.datetime.now() - datetime.timedelta(seconds=20)
             ))).all()
 
     users = []
